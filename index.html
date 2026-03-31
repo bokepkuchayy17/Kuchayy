@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Grid Modern</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo">PORTAL<span>KUCHAYY</span></div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Cari konten...">
+            <button type="submit">🔍</button>
+        </div>
+        <div class="menu-icon" id="menu-btn" style="cursor:pointer;">☰</div>
+        </nav>
+        <div id="side-drawer" class="side-drawer">
+    <div class="drawer-header">
+        <span id="close-btn" style="font-size:30px; cursor:pointer;">&times;</span>
+        <div style="font-weight:bold; margin-left:20px;">MENU</div>
+    </div>
+    <div class="drawer-content">
+        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">🏠 Beranda</a>
+        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">🔥 Trending</a>
+        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">📁 Koleksi</a>
+    </div>
+</div>
+<div id="overlay" class="overlay"></div>
+
+
+    <main class="container">
+        <div class="category-header">
+            <h3>📂 Kategori: Koleksi Terbaru</h3>
+        </div>
+
+        <div class="content-grid">
+            <div class="item-card">
+                <div class="thumbnail">
+                    <img src="https://ik.imagekit.io/lojojcfmt/IMG-20260128-WA0018.jpg" alt="Cover">
+                    <div class="badge-time">12:45</div>
+                    <div class="badge-views">👁️ 5.2k</div>
+                </div>
+                <div class="item-details">
+                    <p class="title">acung</p>
+                </div>
+            </div>
+            
+            <div class="item-card">
+    <div class="thumbnail">
+        <img src="https://picsum.photos/seed/1/320/180" alt="Cover">
+        <div class="badge-time">15:20</div>
+        <div class="badge-views">👁️ 2.4k</div>
+    </div>
+    <div class="item-details">
+        <p class="title">nama konten</p>
+    </div>
+</div>
+
+<div class="item-card">
+    <div class="thumbnail">
+        <img src="https://picsum.photos/seed/2/320/180" alt="Cover">
+        <div class="badge-time">08:12</div>
+        <div class="badge-views">👁️ 890</div>
+    </div>
+    <div class="item-details">
+        <p class="title">nama konten</p>
+    </div>
+</div>
+
+<div class="item-card">
+    <div class="thumbnail">
+        <img src="https://picsum.photos/seed/2/320/180" alt="Cover">
+        <div class="badge-time">08:12</div>
+        <div class="badge-views">👁️ 890</div>
+    </div>
+    <div class="item-details">
+        <p class="title">nama konten</p>
+    </div>
+</div>
+
+
+    </main>
+    <script>
+    const btn = document.getElementById('menu-btn');
+    const close = document.getElementById('close-btn');
+    const drawer = document.getElementById('side-drawer');
+    const overlay = document.getElementById('overlay');
+
+    // Klik Garis 3 untuk Buka
+    btn.onclick = function() {
+        drawer.style.width = "250px";
+        overlay.style.display = "block";
+    }
+
+    // Klik X atau area luar untuk Tutup
+    close.onclick = tutup;
+    overlay.onclick = tutup;
+
+    function tutup() {
+        drawer.style.width = "0";
+        overlay.style.display = "none";
+    }
+    
+    // Ambil elemen pencarian
+const searchInput = document.getElementById('search-input');
+// Ambil semua kotak konten (item-card)
+const cards = document.getElementsByClassName('item-card');
+
+// Fungsi pencarian
+searchInput.addEventListener('keyup', function() {
+    const filter = searchInput.value.toLowerCase(); // Ambil teks yang diketik
+
+    // Looping semua card yang ada
+    for (let i = 0; i < cards.length; i++) {
+        const title = cards[i].querySelector('.title').innerText.toLowerCase();
+        
+        // Jika judul mengandung kata yang diketik, tampilkan. Jika tidak, sembunyikan.
+        if (title.indexOf(filter) > -1) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+:root {
+    --bg-dark: #121212;
+    --card-bg: #1e1e1e;
+    --accent: #00c2cb;
+    --text-white: #e0e0e0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+}
+
+/* Navigasi Atas */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000;
+    border-bottom: 2px solid var(--accent);
+}
+
+.logo { font-weight: bold; font-size: 1.5rem; letter-spacing: 1px; }
+.logo span { color: var(--accent); }
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background: #2a2a2a;
+    color: white;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-container button {
+    background: var(--accent);
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Kontainer Utama */
+.container { padding: 15px; }
+
+.category-header {
+    background: #1a1a1a;
+    padding: 5px 15px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 20px;
+}
+
+/* Grid System */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.item-card {
+    background: var(--card-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.item-card:hover { transform: translateY(-5px); }
+
+.thumbnail { position: relative; }
+.thumbnail img { width: 100%; display: block; }
+
+.badge-time, .badge-views {
+    position: absolute;
+    background: rgba(0,0,0,0.7);
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.badge-time { bottom: 5px; right: 5px; }
+.badge-views { bottom: 5px; left: 5px; }
+
+.item-details { padding: 10px; }
+.title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.bottom-nav {
+    position: fixed; /* Menempel di layar */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #0f0f0f;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #333;
+    z-index: 9999;
+}
+
+.side-drawer {
+    height: 100%;
+    width: 0; /* Sembunyi */
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+}
+
+.drawer-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1500;
+}
