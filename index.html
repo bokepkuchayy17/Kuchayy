@@ -2,131 +2,194 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Grid Modern</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="monetag" content="a675ae90011204fb59dc7daad62a8d0f"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SULTAN REJEKI - WD DANA & PAYPAL</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- BAGIAN CSS (Tampilan) --- */
+        :root { --dana: #008ced; --gold: #facc15; --dark: #0f172a; --success: #22c55e; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark); color: white; margin: 0; overflow-x: hidden; }
+        
+        .header-status { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 20px; text-align: center; border-bottom: 2px solid #334155; }
+        .balance-box { font-size: 2.8rem; font-weight: 800; color: var(--gold); margin: 5px 0; }
+        .vip-badge { background: var(--gold); color: black; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+
+        .main-tap { height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .coin {
+            width: 160px; height: 160px; background: radial-gradient(circle, #fbbf24, #b45309);
+            border-radius: 50%; border: 6px solid #78350f; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 70px;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.4); transition: 0.1s;
+        }
+        .coin:active { transform: scale(0.9); }
+
+        .nav { position: fixed; bottom: 0; width: 100%; background: #1e293b; display: flex; border-top: 1px solid #334155; height: 65px; z-index: 100; }
+        .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; cursor: pointer; }
+        .nav-btn.active { color: var(--gold); border-top: 3px solid var(--gold); background: rgba(250, 204, 21, 0.05); }
+
+        .section { display: none; padding: 20px; padding-bottom: 90px; animation: fadeIn 0.3s; }
+        .card { background: #1e293b; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #334155; }
+        .btn-wd { width: 100%; padding: 14px; border-radius: 8px; border: none; font-weight: bold; color: white; cursor: pointer; margin-top: 8px; }
+        
+        .floating-text { position: absolute; color: var(--gold); font-weight: 800; pointer-events: none; animation: up 0.7s forwards; z-index: 50; }
+        @keyframes up { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-120px); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #fake-notif { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); background: #1e293b; border-left: 4px solid var(--success); padding: 8px 15px; border-radius: 6px; z-index: 1000; display: none; font-size: 12px; width: 80%; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+    </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="logo">CROTIN<span>KUCHAYY</span></div>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Cari konten...">
-            <button type="submit">🔍</button>
+    <div id="fake-notif">Seseorang baru saja menarik Rp 50.000</div>
+
+    <div class="header-status">
+        <span class="vip-badge" id="vip-status">MEMBER SILVER</span>
+        <div class="balance-box" id="balance">Rp 0</div>
+        <div style="color: #94a3b8; font-size: 12px;">Penghasilan Pasif: <span id="mps" style="color:white">Rp 0</span>/jam</div>
+    </div>
+
+    <div id="home" class="section" style="display: block;">
+        <div class="main-tap">
+            <div class="coin" onclick="tap(event)">🪙</div>
+            <p style="margin-top: 15px; color: #64748b; font-size: 13px;">Tap Koin untuk Menghasilkan!</p>
         </div>
-        <div class="menu-icon" id="menu-btn" style="cursor:pointer;">☰</div>
-        </nav>
-        <div id="side-drawer" class="side-drawer">
-    <div class="drawer-header">
-        <span id="close-btn" style="font-size:30px; cursor:pointer;">&times;</span>
-        <div style="font-weight:bold; margin-left:20px;">MENU</div>
-    </div>
-    <div class="drawer-content">
-        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">🏠 Beranda</a>
-        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">🔥 Trending</a>
-        <a href="#" style="display:block; padding:15px; color:white; text-decoration:none; border-bottom:1px solid #333;">📁 Koleksi</a>
-    </div>
-</div>
-<div id="overlay" class="overlay"></div>
-
-
-    <main class="container">
-        <div class="category-header">
-            <h3>📂 Kategori: Terbaru</h3>
+        <div class="card">
+            <div style="font-size: 14px;">Misi Booster: <b>Aktifkan Bonus 2x</b></div>
+            <button onclick="Swal.fire('Fitur Iklan','Tonton video untuk bonus klik 2x!','info')" style="width:100%; margin-top:10px; background:#475569; border:none; color:white; padding:8px; border-radius:5px;">Tonton Iklan</button>
         </div>
+    </div>
 
-        <div class="content-grid">
-            <div class="item-card">
-                <div class="thumbnail">
-                    <img src="https://ik.imagekit.io/lojojcfmt/IMG-20260128-WA0018.jpg" alt="Cover">
-                    <div class="badge-time">12:45</div>
-                    <div class="badge-views">👁️ 5.2k</div>
-                </div>
-                <div class="item-details">
-                    <p class="title">acung</p>
-                </div>
-            </div>
-            
-            <div class="item-card">
-    <div class="thumbnail">
-        <img src="https://picsum.photos/seed/1/320/180" alt="Cover">
-        <div class="badge-time">15:20</div>
-        <div class="badge-views">👁️ 2.4k</div>
+    <div id="withdraw" class="section">
+        <h3 style="margin: 0 0 15px 0;">Menu Pencairan</h3>
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dan_id.png" height="18">
+            <button class="btn-wd" style="background:#008ced" onclick="doWD('DANA', 50000)">Tarik Rp 50.000</button>
+            <button class="btn-wd" style="background:#008ced" onclick="doWD('DANA', 100000)">Tarik Rp 100.000</button>
+        </div>
+        <div class="card">
+            <h4 style="margin:0 0 10px 0; font-size:14px;">Status Transaksi Global</h4>
+            <div id="log-list" style="font-size: 11px; color: #94a3b8; line-height: 2;"></div>
+        </div>
     </div>
-    <div class="item-details">
-        <p class="title">nama konten</p>
-    </div>
-</div>
 
-<div class="item-card">
-    <div class="thumbnail">
-        <img src="https://picsum.photos/seed/2/320/180" alt="Cover">
-        <div class="badge-time">08:12</div>
-        <div class="badge-views">👁️ 890</div>
-    </div>
-    <div class="item-details">
-        <p class="title">nama konten</p>
-    </div>
-</div>
+    <nav class="nav">
+        <div class="nav-btn active" onclick="nav('home', this)">🏠<br>Home</div>
+        <div class="nav-btn" onclick="nav('withdraw', this)">💸<br>Withdraw</div>
+        <div class="nav-btn" onclick="Swal.fire('Upgrade VIP','Fitur VIP hanya tersedia untuk pengguna yang sudah menonton 100 iklan.','warning')">💎<br>VIP</div>
+    </nav>
 
-<div class="item-card">
-    <div class="thumbnail">
-        <img src="https://picsum.photos/seed/2/320/180" alt="Cover">
-        <div class="badge-time">08:12</div>
-        <div class="badge-views">👁️ 890</div>
-    </div>
-    <div class="item-details">
-        <p class="title">nama konten</p>
-    </div>
-</div>
-
-
-    </main>
     <script>
-    const btn = document.getElementById('menu-btn');
-    const close = document.getElementById('close-btn');
-    const drawer = document.getElementById('side-drawer');
-    const overlay = document.getElementById('overlay');
+        let money = localStorage.getItem('sultan_money') ? parseFloat(localStorage.getItem('sultan_money')) : 0;
+        let power = 10; // Sekali klik Rp 10
+        let queueNum = 1250;
 
-    // Klik Garis 3 untuk Buka
-    btn.onclick = function() {
-        drawer.style.width = "250px";
-        overlay.style.display = "block";
-    }
-
-    // Klik X atau area luar untuk Tutup
-    close.onclick = tutup;
-    overlay.onclick = tutup;
-
-    function tutup() {
-        drawer.style.width = "0";
-        overlay.style.display = "none";
-    }
-    
-    // Ambil elemen pencarian
-const searchInput = document.getElementById('search-input');
-// Ambil semua kotak konten (item-card)
-const cards = document.getElementsByClassName('item-card');
-
-// Fungsi pencarian
-searchInput.addEventListener('keyup', function() {
-    const filter = searchInput.value.toLowerCase(); // Ambil teks yang diketik
-
-    // Looping semua card yang ada
-    for (let i = 0; i < cards.length; i++) {
-        const title = cards[i].querySelector('.title').innerText.toLowerCase();
-        
-        // Jika judul mengandung kata yang diketik, tampilkan. Jika tidak, sembunyikan.
-        if (title.indexOf(filter) > -1) {
-            cards[i].style.display = "";
-        } else {
-            cards[i].style.display = "none";
+        // 1. Fungsi Utama UI
+        function updateUI() {
+            document.getElementById('balance').innerText = `Rp ${Math.floor(money).toLocaleString('id-ID')}`;
+            localStorage.setItem('sultan_money', money);
         }
-    }
-});
 
-</script>
+        // 2. Fungsi Klik (Tap)
+        function tap(e) {
+            money += power;
+            updateUI();
+            if (navigator.vibrate) navigator.vibrate(10); // Getar HP
 
+            const t = document.createElement('div');
+            t.className = 'floating-text';
+            t.innerText = `+Rp ${power}`;
+            t.style.left = e.clientX + 'px';
+            t.style.top = e.clientY + 'px';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 700);
+        }
+
+        // 3. Navigasi Halaman
+        function nav(id, el) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).style.display = 'block';
+            el.classList.add('active');
+        }
+
+        // 4. Logika Penarikan Pro
+        async function doWD(method, amount) {
+            if(money < amount) {
+                Swal.fire('Gagal!', `Saldo Anda kurang Rp ${(amount-money).toLocaleString()} lagi.`, 'error');
+                return;
+            }
+
+            const { value: acc } = await Swal.fire({
+                title: `WD ke ${method}`,
+                input: 'text',
+                inputLabel: `Masukkan Nomor HP ${method}`,
+                inputPlaceholder: '08xxxxxxxxxx',
+                showCancelButton: true
+            });
+
+            if(acc) {
+                Swal.fire({
+                    title: 'Memproses...',
+                    html: '<div style="text-align:left; font-family:monospace; background:#000; padding:10px; color:#0f0; font-size:10px;" id="term"></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        const box = document.getElementById('term');
+                        const msg = ["> Connect API...", "> Check Balance...", "> Encrypting...", "> BI-FAST Verifying..."];
+                        let i = 0;
+                        const intv = setInterval(() => {
+                            box.innerHTML += msg[i] + "<br>";
+                            if(i++ === msg.length-1) {
+                                clearInterval(intv);
+                                setTimeout(finalWD, 1000);
+                            }
+                        }, 600);
+                    }
+                });
+            }
+        }
+
+        function finalWD() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Antrean Ke-'+queueNum,
+                text: 'Ingin mempercepat penarikan ke posisi nomor 1?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Tonton Iklan',
+                cancelButtonText: 'Tidak, Tunggu 7 Hari'
+            }).then(res => {
+                if(res.isConfirmed) {
+                    Swal.fire('Video Iklan Memutar...', 'Setelah iklan selesai, status WD Anda akan diprioritaskan!', 'info');
+                    money = 0; // Seolah-olah ditarik semua
+                    updateUI();
+                }
+            });
+        }
+
+        // 5. Notifikasi Palsu & Log Global
+        setInterval(() => {
+            const names = ["Andi", "Siti", "Budi", "Dewi", "Wawan"];
+            const n = names[Math.floor(Math.random()*names.length)];
+            const notif = document.getElementById('fake-notif');
+            notif.innerText = `${n} baru saja menarik Rp 50.000 ke DANA`;
+            notif.style.display = 'block';
+            setTimeout(() => notif.style.display = 'none', 3000);
+        }, 15000);
+
+        function addLog() {
+            const list = document.getElementById('log-list');
+            const item = document.createElement('div');
+            item.style = "display:flex; justify-content:space-between;";
+            item.innerHTML = `<span>User_${Math.floor(Math.random()*9000)+1000}</span><span style="color:#22c55e">BERHASIL</span>`;
+            list.prepend(item);
+            if(list.children.length > 5) list.lastChild.remove();
+        }
+        setInterval(addLog, 5000);
+
+        updateUI();
+    </script>
 </body>
 </html>
